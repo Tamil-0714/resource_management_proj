@@ -25,7 +25,7 @@ app.use(
     secret: "iam_iron_man",
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false, httpOnly: true, maxAge: 60000 },
+    cookie: { secure: false, httpOnly: true, maxAge: 86400000 },
   })
 );
 

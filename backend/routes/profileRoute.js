@@ -1,14 +1,16 @@
 const express = require("express");
+const { fetchStsInfo } = require("../DB/db");
 const router = express.Router();
 
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
   const user = req.session.user;
   console.log("this is user", user);
 
   if (user.role === "admin") {
+    const stdInfos = await fetchStsInfo();
     res.status(200).json({
-      message: "Welcome to your profile",
-      user: "admin login",
+      message: "Welcome to Admin profile",
+      stdData: stdInfos,
     });
   } else if (user.role === "faculty") {
     res.status(200).json({

@@ -1,4 +1,5 @@
 const mysql = require("mysql2");
+const { param } = require("../routes/loginRoute");
 
 function connectDB() {
   const pool = mysql.createPool({
@@ -27,7 +28,7 @@ async function queryDB(sql, params) {
 async function fetchCred(id, flag) {
   try {
     let query;
-    console.log("this is flag db", flag);
+    // console.log("this is flag db", flag);
 
     switch (flag) {
       case "admin":
@@ -42,6 +43,8 @@ async function fetchCred(id, flag) {
     }
     const params = [id];
     const rows = await queryDB(query, params);
+    console.log("this is rows : ", rows);
+
     return rows;
   } catch (error) {
     console.error(error);
@@ -49,7 +52,17 @@ async function fetchCred(id, flag) {
   }
 }
 
+async function fetchStsInfo() {
+  try {
+    const query = `select * from studentProfile where id in (select id from stdRequestInfo)`;
+    const params = [];
+    const rows = await queryDB(query, params);
+    return rows;
+  } catch (error) {
+    console.error(error);
+  }
+}
 module.exports = {
   fetchCred,
+  fetchStsInfo,
 };
-
