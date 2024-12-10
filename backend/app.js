@@ -5,6 +5,7 @@ const { ensureAuthenticated } = require("./middleware/middleware");
 const loginRoute = require("./routes/loginRoute");
 const logoutRoute = require("./routes/logoutRoute");
 const profileRoute = require("./routes/profileRoute");
+const { fetchReqInfo } = require("./DB/db");
 
 const app = express();
 const port = 8050;
@@ -34,6 +35,13 @@ app.post("/login", loginRoute);
 
 // Profile Route (Protected)
 app.get("/profile", ensureAuthenticated, profileRoute);
+
+app.post("/stdReqInfo", ensureAuthenticated, async (req, res) => {
+  const {stdId} = req.body;
+  const rows = await fetchReqInfo(stdId);
+
+  res.status(200).json({ reqInfo: rows });
+});
 
 // Logout Route
 app.post("/logout", logoutRoute);

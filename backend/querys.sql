@@ -35,6 +35,8 @@ create table studentCred(
 );
 
 insert into studentCred(id,pass) values("22ucs622","$2a$12$CABFTzxYI2l6IPu2Y2r9De89bs5kXrZQ085vG2A45Ktb45egaAvQq"); -- iamstd@123
+insert into studentCred(id,pass) values("22ucs627","$2a$12$gpodXSxn1Ft.iipHAlFPUu5.yZuxa.0iGLohN4.RumUXx3c6nEJDW"); -- EZKing
+insert into studentCred(id,pass) values("22ucs626","$2a$12$2KBPLNBv8iWBsH33hsVcS.FqIcyiHBUEAdXWe4mkYKA2.f8H381DS"); -- TooJoo
 -------------------------------------------------------------------------------------------------------------------------------------
 -- studentProfile table
 

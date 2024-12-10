@@ -62,7 +62,18 @@ async function fetchStsInfo() {
     console.error(error);
   }
 }
+async function fetchReqInfo(stdId) {
+  try {
+    const query = `select * from stdRequestInfo where id = ? and reqStatus ='pending'`;
+    const params = [stdId];
+    const rows = await queryDB(query, params);
+    return rows;
+  } catch (error) {
+    console.error(error);
+  }
+}
 module.exports = {
   fetchCred,
   fetchStsInfo,
+  fetchReqInfo
 };

@@ -2,6 +2,8 @@ const loadProfileInfo = (data) => {
   const container = document.querySelector(".students-container");
 
   data.forEach((e) => {
+    console.log("this is e", e);
+
     const studentContainer = document.createElement("div");
     studentContainer.classList.add("student-container");
 
@@ -39,7 +41,8 @@ const loadProfileInfo = (data) => {
 
     const slButton = document.createElement("sl-button");
     slButton.classList.add("requested-info-btn");
-    slButton.setAttribute("onclick", "togglePopup(this)");
+    slButton.setAttribute("data-stdId", e.id);
+    slButton.setAttribute("onclick", "handleReqInfo(this)");
     slButton.textContent = "Request Info";
 
     spanAnchor.appendChild(slButton);
@@ -66,6 +69,55 @@ const loadProfileInfo = (data) => {
     container.appendChild(studentContainer);
   });
 };
+
+const loadReqInfo = async (stdId, reqBox) => {
+  reqBox.innerHTML = `<sl-icon name="x-lg" class="box-close-icon" onclick="closePopup(this)" aria-hidden="true" library="default"></sl-icon><div
+                        class="div-hidder"
+                        style="height: 30px; width: 100%"
+                      ></div>`;
+  try {
+    const response = await fetch("http://localhost:8050/stdReqInfo", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Inform backend that the body is JSON
+      },
+      body: JSON.stringify({ stdId }),
+      credentials: "include",
+    });
+    if (response.ok) {
+      const result = await response.json();
+      const reqInfos = result.reqInfo;
+      reqInfos.forEach((reqInfo) => {
+        const dummy = `   <div class="full-box-container" data-reqStdId="${reqInfo.id}" data-reqId="${reqInfo.reqId}">
+                        <div class="left-box-container">
+                          <div class="left-top-container">
+                            <h3>${reqInfo.id}, ${reqInfo.resourceName} - ${reqInfo.reqDate}</h3>
+                          </div>
+                          <div class="left-bottom-container">
+                            <p>
+                              ${reqInfo.reqReason}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="right-box-container">
+                          <div class="right-top-container">
+                            <button class="approve-request">Approve</button>
+                          </div>
+                          <div class="right-bottom-container">
+                            <button class="reject-request">Reject</button>
+                          </div>
+                        </div>
+                  </div>`;
+        reqBox.innerHTML += dummy;
+      });
+    } else {
+      console.error("somewent wrong");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 async function fetchProfile() {
   try {
     const response = await fetch("http://localhost:8050/profile", {
@@ -78,12 +130,12 @@ async function fetchProfile() {
 
       console.log(result.stdData);
       loadProfileInfo(result.stdData);
+      // document.querySelector(".request-info-box").innerHTML = `<div>hellow</div>`
     } else if (response.status === 401) {
       window.location.href = "/index.html"; //unauthorized
-    } 
+    }
   } catch (error) {
     console.error("Error fetching profile:", error);
-   
   }
 }
 

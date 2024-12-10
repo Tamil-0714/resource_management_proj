@@ -26,12 +26,101 @@
       <sl-tab slot="nav" panel="requestOS">Request Oversight</sl-tab>
       <sl-tab slot="nav" panel="NotificationSYS">Notification System</sl-tab>
 
-      <sl-tab slot="nav" panel="logout"><button id="logout-button">Logout</button></sl-tab>
+      <sl-tab slot="nav" panel="logout"
+        ><button id="logout-button">Logout</button></sl-tab
+      >
 
       <sl-tab-panel name="users" class="users-container">
         <div class="details-group-example">
-          <sl-details summary="Student">
-            <div class="students-container"></div>
+          <sl-details summary="Student" open>
+            <div class="students-container">
+              <!-- <div class="student-container">
+                <div class="avatar-wrapper">
+                  <sl-avatar label="User avatar" shape="circle"></sl-avatar>
+                </div>
+                <div class="name-other-wrapper">
+                  <h4 class="std-name">Sakthi</h4>
+                  <p class="update-time">16 Dec 2024 05:43</p>
+                </div>
+                <div class="request-info-wrapper">
+                  <sl-popup
+                    placement="right"
+                    skidding="200"
+                    distance="2"
+                    strategy="absolute"
+                    active=""
+                    data-current-placement="right"
+                    ><span slot="anchor"
+                      ><sl-button
+                        class="requested-info-btn"
+                        onclick="handleReqInfo(this)"
+                        variant="default"
+                        size="medium"
+                        data-optional=""
+                        data-valid=""
+                        data-user-valid=""
+                        >Request Info</sl-button
+                      ></span
+                    >
+                    <div class="box request-info-box">
+                      <sl-icon
+                        name="x-lg"
+                        class="box-close-icon"
+                        onclick="closePopup(this)"
+                        aria-hidden="true"
+                        library="default"
+                      ></sl-icon>
+                      <div
+                        class="div-hidder"
+                        style="height: 30px; width: 100%"
+                      ></div>
+                      <div class="full-box-container" data-reqStdId="22ucs626" data-reqId="1">
+                        <div class="left-box-container">
+                          <div class="left-top-container">
+                            <h3>22UCS626, Lawlew Hall - 17 dec 24</h3>
+                          </div>
+                          <div class="left-bottom-container">
+                            <p>
+                              for conduction an componet exam for this exam and
+                              bla bla some dummy content ooo hooo yeee
+                            </p>
+                          </div>
+                        </div>
+                        <div class="right-box-container">
+                          <div class="right-top-container">
+                            <button class="approve-request">Approve</button>
+                          </div>
+                          <div class="right-bottom-container">
+                            <button class="reject-request">Reject</button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="full-box-container">
+                        <div class="left-box-container">
+                          <div class="left-top-container">
+                            <h3>22UCS626, Lawlew Hall - 17 dec 24</h3>
+                          </div>
+                          <div class="left-bottom-container">
+                            <p>
+                              for conduction an componet exam for this exam and
+                              bla bla some dummy content ooo hooo yeee
+                            </p>
+                          </div>
+                        </div>
+                        <div class="right-box-container">
+                          <div class="right-top-container">
+                            <button class="approve-request">Approve</button>
+                          </div>
+                          <div class="right-bottom-container">
+                            <button class="reject-request">Reject</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </sl-popup>
+                </div>
+              </div> -->
+            </div>
           </sl-details>
 
           <sl-details summary="Faculty"> </sl-details>
@@ -44,11 +133,12 @@
       <sl-tab-panel name="disabled">This is a disabled tab panel.</sl-tab-panel>
     </sl-tab-group>
     <!-- <div id="profile-info"></div> -->
-    
+
     <script src="./script/profileFetch.js"></script>
     <script>
       const container = document.querySelector(".details-group-example");
-      function togglePopup(element) {
+      async function handleReqInfo(element) {
+        const stdId = element.getAttribute("data-stdid");
         document.querySelectorAll("sl-popup").forEach((popup) => {
           popup.removeAttribute("active");
         });
@@ -56,6 +146,11 @@
         if (!popup.hasAttribute("active")) {
           popup.setAttribute("active", "");
         }
+
+        const reqBox = popup.querySelector(".request-info-box");
+        console.log("this area is called");
+
+        await loadReqInfo(stdId, reqBox);
       }
       function closePopup(element) {
         const popup = element.closest("sl-popup");
