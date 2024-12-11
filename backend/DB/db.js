@@ -72,8 +72,28 @@ async function fetchReqInfo(stdId) {
     console.error(error);
   }
 }
+async function addNewStd(stdName, stdId, stdPass) {
+  try {
+    const query = `insert into studentCred values(?,?)`;
+    const params = [stdId, stdPass];
+    const rows = await queryDB(query, params);
+    if (rows?.affectedRows === 1) {
+      const query = "insert into studentProfile(id,stdName) values(?,?)";
+      const param = [stdId, stdName];
+      const rows = await queryDB(query, param);
+      return rows;
+    }
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// addNewStd("ok", "22abc123", "123");
+
 module.exports = {
   fetchCred,
   fetchStsInfo,
-  fetchReqInfo
+  fetchReqInfo,
+  addNewStd,
 };

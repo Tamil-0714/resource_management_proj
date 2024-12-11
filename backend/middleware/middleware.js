@@ -8,7 +8,18 @@ function ensureAuthenticated(req, res, next) {
       .json({ message: "Unauthorized: Please login first" });
   }
 }
+// Protect Routes
+function ensureAdminAuthenticated(req, res, next) {
+  if (req.session.user.role === 'admin') {
+    return next();
+  } else {
+    return res
+      .status(401)
+      .json({ message: "Unauthorized: Please login first" });
+  }
+}
 
 module.exports = {
   ensureAuthenticated,
+  ensureAdminAuthenticated,
 };

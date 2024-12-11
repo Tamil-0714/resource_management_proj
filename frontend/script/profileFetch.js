@@ -118,6 +118,40 @@ const loadReqInfo = async (stdId, reqBox) => {
   }
 };
 
+const addNewStd = async (e, stdName, stdId, stdPass) => {
+  try {
+    e.preventDefault();
+    const response = await fetch("http://localhost:8050/newStd", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ stdName, stdId, stdPass }),
+      credentials: "include",
+    });
+    if (response.ok) {
+      const result = await response.json();
+      if (result.message === "success") {
+        alert("student added success");
+      } else {
+        alert("student not added");
+      }
+    } else {
+      console.log("error in add new student");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+document.querySelector("#addNewUser").addEventListener("submit", async (e) => {
+  const stdName = document.querySelector("#sName").value.trim();
+  const stdId = document.querySelector("#sid").value.trim();
+  const stdPass = document.querySelector("#sPass").value.trim();
+
+  await addNewStd(e, stdName, stdId, stdPass);
+});
+
 async function fetchProfile() {
   try {
     const response = await fetch("http://localhost:8050/profile", {

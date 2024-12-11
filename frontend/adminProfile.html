@@ -31,10 +31,11 @@
       >
 
       <sl-tab-panel name="users" class="users-container">
-        <div class="details-group-example">
-          <sl-details summary="Student" open>
-            <div class="students-container">
-              <!-- <div class="student-container">
+        <div class="users-top-container">
+          <div class="details-group-example">
+            <sl-details summary="Student" open>
+              <div class="students-container">
+                <!-- <div class="student-container">
                 <div class="avatar-wrapper">
                   <sl-avatar label="User avatar" shape="circle"></sl-avatar>
                 </div>
@@ -120,13 +121,39 @@
                   </sl-popup>
                 </div>
               </div> -->
-            </div>
-          </sl-details>
+              </div>
+            </sl-details>
 
-          <sl-details summary="Faculty"> </sl-details>
+            <sl-details summary="Faculty"> </sl-details>
+          </div>
+          <div class="new-user-container">
+            <form action="#" id="addNewUser">
+              <center><h3>New student Registration</h3></center>
+              <div class="labels-wrapper">
+                <div class="label-wrapper">
+                  <label for="sName" class="stdName">Name</label>
+                  <input type="text" id="sName" autocomplete="off" />
+                </div>
+                <div class="label-wrapper">
+                  <label for="sid" class="stdId">Id</label>
+                  <input type="text" id="sid" autocomplete="off" />
+                </div>
+                <div class="label-wrapper">
+                  <label for="sPass" class="stdPass">Password</label>
+                  <input type="password" id="sPass" />
+                </div>
+              </div>
+              <div class="form-button-wrapper">
+                <button class="submit-btn">Add Student</button>
+              </div>
+            </form>
+          </div>
         </div>
       </sl-tab-panel>
-      <sl-tab-panel name="custom">This is the custom tab panel.</sl-tab-panel>
+
+      <sl-tab-panel name="resourceMG"
+        >This is the custom tab panel.</sl-tab-panel
+      >
       <sl-tab-panel name="advanced"
         >This is the advanced tab panel.</sl-tab-panel
       >

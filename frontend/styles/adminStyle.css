@@ -2,12 +2,20 @@
   margin: 0;
   padding: 0;
 }
+.users-top-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+}
 .users-container {
   height: calc(100vh - 50px);
-  width: 30%;
+  width: 100%;
 }
 .details-group-example sl-details:not(:last-of-type) {
   margin-bottom: var(--sl-spacing-2x-small);
+}
+.details-group-example {
+  width: 30%;
 }
 .students-container {
   display: flex;
@@ -16,6 +24,7 @@
 }
 .student-container {
   /* outline: 1px solid red; */
+
   display: flex;
   align-items: center;
   gap: 30px;
@@ -86,4 +95,39 @@
 .right-top-container button:hover {
   background-color: hsl(110, 80%, 25%);
   border: none;
+}
+
+.new-user-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+}
+#addNewUser {
+  width: 65%;
+  outline: 1px solid;
+  border-radius: 8px;
+  padding: 12px;
+}
+.label-wrapper {
+  display: flex;
+  margin: 10px 0;
+  justify-content: space-between;
+}
+.label-wrapper label {
+  font-size: 1.1em;
+  align-self: center;
+}
+.label-wrapper input {
+  padding: 8px;
+  font-size: 1.1em;
+}
+.submit-btn {
+  padding: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+.form-button-wrapper {
+  display: flex;
+  flex-direction: column;
 }
